@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: src
+
+  profiles:
+    active: test
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0B
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+  type-aliases-package: com.igoodsale.model
+  mapper-locations: classpath:mapper/*.xml
+
+
+qiniu:
+  bucket: cakeboss
+  bucketUrl: https://static.igoodsale.com/
+  expire: 1800
+  acceskey: f6kQh0hl8xY-1oVdRNDCoJJCxK9p2Q8Q0VUQRVlg
+  secretkey: sfg7cqerec7dmOuo7aVU8j-PNqgu3YOvleNLzQVb
+
+server:
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    basedir: /tmp/tomcat
+
+#ali
+alipay:
+  appId:
+  partner:
+  sellerId:
+  publicKey:
+  privateKey:
+  payNotifyUrl:
+  return:
+
+
+#pagehelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  page-size-zero: true
+
+
+
