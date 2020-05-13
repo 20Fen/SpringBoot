@@ -1,0 +1,103 @@
+#配置端口
+server:
+  port: 9000
+
+#配置数据源
+spring:
+  datasource:
+    druid:
+#      url: jdbc:mysql://rm-2ze106h8q5icalb61go.mysql.rds.aliyuncs.com:3306/meihao_base?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&zeroDateTimeBehavior=round&serverTimezone=Asia/Shanghai
+#      username: meihao_base
+#      password: 604a90b454a947e98cdfe79c2c242fde
+
+      url: jdbc:mysql://rm-2ze106h8q5icalb61go.mysql.rds.aliyuncs.com:3306/goodsale_test?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&zeroDateTimeBehavior=round&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+      username: goodsale_test
+      password: AtHAJlGa6awClWltstZKQ222==
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      maxEvictableIdleTimeMillis: 600000
+      minEvictableIdleTimeMillis: 300000
+      filters: wall,stat
+      stat-view-servlet:
+        #        login-username: root
+        #        login-password: root
+        reset-enable: true
+      #        deny: 192.168.0.110
+      #        allow: 192.168.0.109
+      filter:
+        stat:
+          merge-sql: true
+        wall:
+          enabled: true
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+        profile-enable: true
+      db-type: mysql
+
+  #配置redis
+  redis:
+    database: 0
+    host: 39.106.32.156
+    port: 6379
+    password: TjopCrpH90EgBK53nIIpiw
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: 1000
+        max-idle: 200
+        min-idle: 15
+    timeout: 10000
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com:
+      base:
+        server:
+          dao: debug
+
+dubbo:
+  protocol:
+    #服务提供方所暴露的端口号，多个服务提供方不可重复
+    port: 20890
+    #服务所使用的协议名称,本系统使用dubbo协议
+    name: dubbo
+  application:
+    #dubbo服务名称
+    name: base-server-service
+    qos-port: 33333
+    qos-enable: true
+    qos-accept-foreign-ip: false
+  scan:
+    #扫描服务所在包路径
+    base-packages: com.base.server.service
+  registry:
+    #    #开发环境本地启动zk地址
+    address: zookeeper://127.0.0.1:2181
+    #测试环境本地启动zk地址
+    #    address: zookeeper://47.95.212.72:2181
+    #注册中心请求超时时间（毫秒）
+    timeout: 120000
+  provider:
+    timeout: 10000
+  consumer:
+    timeout: 10000
+
+
+
+
+
+
+
+
+
