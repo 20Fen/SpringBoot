@@ -4,6 +4,7 @@ import com.example.demo.system.dao.mapper.TestMapper;
 import com.example.demo.system.model.bo.TestBo;
 import com.example.demo.system.model.po.*;
 import com.example.demo.system.service.TestService;
+import com.example.demo.system.util.Page1;
 import com.example.demo.system.util.TableAll;
 import com.exception.CustomException;
 import com.example.demo.system.util.DateUtil;
@@ -47,15 +48,23 @@ public class TestServiceImpl implements TestService {
      * Description: 根据条件进行查询
      */
     @Override
-    public PageInfo<TestPo> findAll(Integer page, Integer pageSize, Map<String, Object> map) {
+    public Page1<TestPo> findAll(Integer pageNum, Integer pageSize, Map<String, Object> map) {
         //前台必须传分页值
         //调用分页插件,执行的语句必须在插件的下面
-        int offset = page != null ? page : 1;
+        int offset = pageNum != null ? pageNum : 1;
         int limit = pageSize != null ? pageSize : 10;
         PageHelper.startPage(offset, limit);
-        Page<TestPo> testPos = testMapper.findAll(map);
-        PageInfo<TestPo> pageInfo = new PageInfo<TestPo>(testPos);
-        return pageInfo;
+        List<TestPo> testPos = testMapper.findAll(map);
+        PageInfo<TestPo> pageInfo = new PageInfo<>(testPos);
+        long total = pageInfo.getTotal();
+
+        Page1<TestPo> page = new Page1<>();
+        page.setPageIndex(offset);
+        page.setPageSize(limit);
+        page.setContent(testPos);
+        page.setTotal((int)total);
+        page.setTotalPage();
+        return page;
     }
 
     @Override

@@ -56,7 +56,7 @@ public class TestController extends BaseController {
         map.put("statTime",statTime);
         map.put("endTime",endTime);
         map.put("createTime",createTime);
-        PageInfo<TestPo> all = testService.findAll(page, pageSize, map);
+        Page1<TestPo> all = testService.findAll(page, pageSize, map);
         if (Objects.nonNull(all)) {
             return success(ReturnInfo.QUERY_SUCCESS_MSG, all);
         } else {
