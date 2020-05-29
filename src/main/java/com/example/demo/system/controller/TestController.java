@@ -224,4 +224,15 @@ public class TestController extends BaseController {
         }
         return success((ReturnInfo.QUERY_SUCCESS_MSG), test);
     }
+
+
+    @GetMapping("goeasy")
+    public String publish() {
+        Map<String, String> params = new HashMap<>(2);
+        params.put("type", "1");
+
+        params.put("orderViewId", "1549949186232690");
+        GoEasyUtil.publish("新单来啦！", "您有一个美好零售新单，点击查看", "channel_"+1549847, 1, params,2,0L,0L,0);
+        return "success";
+    }
 }
