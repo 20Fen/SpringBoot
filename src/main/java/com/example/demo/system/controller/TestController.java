@@ -227,6 +227,7 @@ public class TestController extends BaseController {
 
 
     @GetMapping("goeasy")
+    @ApiOperation("goeasy测试")
     public String publish() {
         Map<String, String> params = new HashMap<>(2);
         params.put("type", "1");
