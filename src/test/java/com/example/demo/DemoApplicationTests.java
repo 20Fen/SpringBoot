@@ -13,14 +13,15 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+
 public class DemoApplicationTests {
 
     @Test
     public void excel() throws Exception {
 //        Excel导出
-        File file = new File("/Users/apple/Documents/12.xls"); // 创建文件对象
+        File file = new File("/Users/apple/Documents/1.xlsx"); // 创建文件对象
         Workbook wb = Workbook.getWorkbook(file); // 从文件流中获取Excel工作区对象（WorkBook）
         Sheet sheet = wb.getSheet(0); // 从工作区中取得页（Sheet）
         for (int i = 0; i < sheet.getRows(); i++) { // 循环打印Excel表中的内容
