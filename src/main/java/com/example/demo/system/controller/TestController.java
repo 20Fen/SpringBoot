@@ -5,6 +5,7 @@ import com.example.demo.system.model.po.*;
 import com.example.demo.system.service.TestService;
 import com.example.demo.system.util.*;
 import com.exception.CustomException;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -56,7 +57,7 @@ public class TestController extends BaseController {
         map.put("statTime",statTime);
         map.put("endTime",endTime);
         map.put("createTime",createTime);
-        Page1<TestPo> all = testService.findAll(page, pageSize, map);
+        PageResult<List<TestPo>> all = testService.findAll(page, pageSize, map);
         if (Objects.nonNull(all)) {
             return success(ReturnInfo.QUERY_SUCCESS_MSG, all);
         } else {

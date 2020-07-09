@@ -4,11 +4,8 @@ import com.example.demo.system.dao.mapper.TestMapper;
 import com.example.demo.system.model.bo.TestBo;
 import com.example.demo.system.model.po.*;
 import com.example.demo.system.service.TestService;
-import com.example.demo.system.util.Page1;
-import com.example.demo.system.util.TableAll;
+import com.example.demo.system.util.*;
 import com.exception.CustomException;
-import com.example.demo.system.util.DateUtil;
-import com.example.demo.system.util.TestUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -48,23 +45,18 @@ public class TestServiceImpl implements TestService {
      * Description: 根据条件进行查询
      */
     @Override
-    public Page1<TestPo> findAll(Integer pageNum, Integer pageSize, Map<String, Object> map) {
+    public PageResult<List<TestPo>> findAll(Integer pageNum, Integer pageSize, Map<String, Object> map) {
         //前台必须传分页值
         //调用分页插件,执行的语句必须在插件的下面
         int offset = pageNum != null ? pageNum : 1;
         int limit = pageSize != null ? pageSize : 10;
         PageHelper.startPage(offset, limit);
-        List<TestPo> testPos = testMapper.findAll(map);
-        PageInfo<TestPo> pageInfo = new PageInfo<>(testPos);
-        long total = pageInfo.getTotal();
-
-        Page1<TestPo> page = new Page1<>();
-        page.setPageIndex(offset);
-        page.setPageSize(limit);
-        page.setContent(testPos);
-        page.setTotal((int)total);
-        page.setTotalPage();
-        return page;
+        Page<TestPo> testPos = testMapper.findAll(map);
+        //强制分页
+        List listResult = PageUtil.startPage(testPos, pageNum, pageSize);
+        //页数
+        int pages = (int)Math.ceil((double) testPos.size() / pageSize);
+        return new PageResult<>(listResult,pageNum,pageSize,testPos.size(),pages);
     }
 
     @Override
@@ -72,14 +64,6 @@ public class TestServiceImpl implements TestService {
         int count = 0;
         page(pageReq);
         List<TestPo> testPos = testMapper.find();
-//        if(null != testPos){
-//            count = testPos.size();
-//            int fromIndex = offset * limit;
-//            int toIndex = (offset + 1) * limit;
-//            if(toIndex > count) {
-//                toIndex = count;
-//            }
-//            List<TestPo> testPos1 = testPos.subList(fromIndex, toIndex);
 
         return new PageInfo<>(testPos);
     }

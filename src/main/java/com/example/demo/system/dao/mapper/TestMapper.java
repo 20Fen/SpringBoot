@@ -16,7 +16,7 @@ import java.util.Map;
 @Mapper
 public interface TestMapper {
     //    根据条件查询
-    List<TestPo> findAll(Map<String, Object> map);
+    Page<TestPo> findAll(Map<String, Object> map);
 
     //    新建
     Integer insertTest(@Param("list") TestPo test);

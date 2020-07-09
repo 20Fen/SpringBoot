@@ -2,8 +2,9 @@ package com.example.demo.system.service;
 
 import com.example.demo.system.model.bo.TestBo;
 import com.example.demo.system.model.po.*;
-import com.example.demo.system.util.Page1;
+import com.example.demo.system.util.PageResult;
 import com.exception.CustomException;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 
 public interface TestService {
     //    根据条件查询
-    Page1<TestPo> findAll(Integer page, Integer pageSize, Map<String,Object> map);
+    PageResult<List<TestPo>> findAll(Integer page, Integer pageSize, Map<String,Object> map);
 
     //    新建和修改
     String insert(TestBo testBo) throws Exception;
