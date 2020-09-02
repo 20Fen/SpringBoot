@@ -86,9 +86,16 @@
         where 1 = 1
         <choose>
             <when test="endTime != null and endTime!= '' and statTime != null and statTime!= ''">
-                and (stat_time <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d %H:%i:%s') and end_time
-                <![CDATA[ >= ]]> DATE_FORMAT(#{statTime},'%Y-%m-%d %H:%i:%s'))
+
+                AND (
+                (ma.start_time <![CDATA[ >= ]]> DATE_FORMAT( #{statTime}, '%Y-%m-%d' ) AND ma.start_time <![CDATA[ <= ]]> DATE_FORMAT( #{endTime}, '%Y-%m-%d' ) )
+                OR( ma.end_time <![CDATA[ <= ]]> DATE_FORMAT( '#{endTime}', '%Y-%m-%d' ) AND ma.end_time <![CDATA[ >= ]]> DATE_FORMAT( #{statTime}, '%Y-%m-%d' ) )
+                )
             </when>
+<!--            <when test="endTime != null and endTime!= '' and statTime != null and statTime!= ''">-->
+<!--                and (stat_time <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d %H:%i:%s') and end_time-->
+<!--                <![CDATA[ >= ]]> DATE_FORMAT(#{statTime},'%Y-%m-%d %H:%i:%s'))-->
+<!--            </when>-->
             <when test="statTime != null and statTime!= ''">
                 and end_time <![CDATA[ >= ]]> DATE_FORMAT(#{statTime},'yyyy-MM-dd')
             </when>
